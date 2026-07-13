@@ -23,6 +23,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // ignore
     }
     const initial: Theme = stored === "light" ? "light" : "dark";
+    // Client-only hydration — see AppDataContext for why this can't be lazy useState init.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(initial);
     document.documentElement.setAttribute("data-theme", initial);
   }, []);

@@ -17,6 +17,8 @@ export function ShipmentsProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // Client-only hydration — see AppDataContext for why this can't be lazy useState init.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShipments(loadShipments());
     setHydrated(true);
   }, []);

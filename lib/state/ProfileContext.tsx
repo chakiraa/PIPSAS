@@ -14,7 +14,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const [fullName, setFullNameState] = useState("");
 
   useEffect(() => {
+    // Client-only hydration — see AppDataContext for why this can't be lazy useState init.
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFullNameState(localStorage.getItem(PROFILE_KEY) || "");
     } catch {
       // ignore

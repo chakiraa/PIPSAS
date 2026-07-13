@@ -49,6 +49,10 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // One-time client-only hydration from localStorage — must run in an
+    // effect (not lazy useState init) since localStorage isn't available
+    // during SSR and reading it eagerly would cause a hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState(safeLoad<AppState>(STORAGE_KEY, EMPTY_STATE));
     setCommentStore(loadCommentStore());
     setHydrated(true);
