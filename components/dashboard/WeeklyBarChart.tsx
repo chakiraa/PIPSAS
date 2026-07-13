@@ -28,7 +28,7 @@ export function WeeklyBarChart({ bars }: WeeklyBarChartProps) {
           <YAxis tick={{ fill: labelColor, fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
             cursor={{ fill: gridColor }}
-            formatter={(value: number) => [`${value} orders`, ""]}
+            formatter={(value) => [`${Number(value) || 0} orders`, ""]}
             contentStyle={{
               background: "var(--card)",
               border: "1px solid var(--border)",

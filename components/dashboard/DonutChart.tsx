@@ -43,7 +43,10 @@ export function DonutChart({ segments, centerLabel }: DonutChartProps) {
               ))}
             </Pie>
             <Tooltip
-              formatter={(value: number, name: string) => [`${value} (${total ? Math.round((value / total) * 100) : 0}%)`, name]}
+              formatter={(value, name) => {
+                const n = Number(value) || 0;
+                return [`${n} (${total ? Math.round((n / total) * 100) : 0}%)`, name];
+              }}
               contentStyle={{
                 background: "var(--card)",
                 border: "1px solid var(--border)",

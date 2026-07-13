@@ -36,7 +36,7 @@ export function HBarChart({ bars }: HBarChartProps) {
           />
           <Tooltip
             cursor={{ fill: gridColor }}
-            formatter={(value: number) => [`${value} orders`, ""]}
+            formatter={(value) => [`${Number(value) || 0} orders`, ""]}
             contentStyle={{
               background: "var(--card)",
               border: "1px solid var(--border)",

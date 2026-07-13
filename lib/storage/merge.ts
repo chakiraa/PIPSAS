@@ -17,7 +17,7 @@ export function mergeMC16(ex: Mc16Row[], inc: Mc16Row[], cs: CommentStore): Mc16
   ex.forEach((r) => (exMap[r.articleNumber] = r));
   const inKeys = new Set(inc.map((r) => r.articleNumber));
 
-  const out = inc.map((r) => ({
+  const out: Mc16Row[] = inc.map((r) => ({
     ...r,
     comment: latestLogText(cs[mc16Key(r)]) || exMap[r.articleNumber]?.comment || "",
     status: exMap[r.articleNumber]?.status || "Active",
@@ -37,10 +37,10 @@ export function mergeBacklog(ex: BacklogRow[], inc: BacklogRow[], cs: CommentSto
   ex.forEach((r) => (exMap[key(r)] = r));
   const inKeys = new Set(inc.map(key));
 
-  const out = inc.map((r) => ({
+  const out: BacklogRow[] = inc.map((r) => ({
     ...r,
     comment: latestLogText(cs[backlogKey(r)]) || exMap[key(r)]?.comment || "",
-    status: "Active" as const,
+    status: "Active",
   }));
 
   ex.forEach((r) => {
@@ -57,10 +57,10 @@ export function mergeMRP(ex: MrpRow[], inc: MrpRow[], cs: CommentStore): MrpRow[
   ex.forEach((r) => (exMap[key(r)] = r));
   const inKeys = new Set(inc.map(key));
 
-  const out = inc.map((r) => ({
+  const out: MrpRow[] = inc.map((r) => ({
     ...r,
     comment: latestLogText(cs[mrpKey(r)]) || exMap[key(r)]?.comment || "",
-    rowStatus: "Active" as const,
+    rowStatus: "Active",
   }));
 
   ex.forEach((r) => {
@@ -77,10 +77,10 @@ export function mergeSC(ex: ScRow[], inc: ScRow[], cs: CommentStore): ScRow[] {
   ex.forEach((r) => (exMap[key(r)] = r));
   const inKeys = new Set(inc.map(key));
 
-  const out = inc.map((r) => ({
+  const out: ScRow[] = inc.map((r) => ({
     ...r,
     comment: latestLogText(cs[scKey(r)]) || exMap[key(r)]?.comment || "",
-    rowStatus: "Active" as const,
+    rowStatus: "Active",
   }));
 
   ex.forEach((r) => {

@@ -12,6 +12,7 @@ import { useAppData } from "@/lib/state/AppDataContext";
 import { useToast } from "@/lib/state/ToastContext";
 import { useProfile } from "@/lib/state/ProfileContext";
 import { getInitials } from "@/lib/utils/text";
+import type { CommentStore } from "@/types";
 
 export function Topbar({ onHamburger }: { onHamburger: () => void }) {
   const pathname = usePathname();
@@ -41,9 +42,9 @@ export function Topbar({ onHamburger }: { onHamburger: () => void }) {
   async function importComments(file: File) {
     try {
       const text = await file.text();
-      const incoming = JSON.parse(text);
+      const incoming = JSON.parse(text) as CommentStore;
       const merged = { ...commentStore };
-      for (const [key, value] of Object.entries<{ log?: { ts: string }[] }>(incoming)) {
+      for (const [key, value] of Object.entries(incoming)) {
         if (!merged[key]) {
           merged[key] = value as (typeof merged)[string];
         } else {
