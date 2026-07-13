@@ -9,6 +9,7 @@ export const PROFILE_KEY = "pipv1_profile_name";
 export const SHIPMENT_KEY = "pipv1_shipments_v1";
 export const COMMENT_KEY_V2 = "pipv1_comments_v2";
 export const AI_HISTORY_KEY = "pipv1_ai_history_v1";
+export const AI_SNOOZE_KEY = "pipv1_ai_suggestion_seen_v1";
 export const TODO_KEY = "pipv1_todo_v1";
 export const THEME_KEY = "pipv1_theme";
 

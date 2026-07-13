@@ -14,7 +14,7 @@ import { WeeklyBarChart } from "@/components/dashboard/WeeklyBarChart";
 function weekLabel(offset: number): string {
   const d = new Date(TODAY);
   d.setDate(d.getDate() + offset * 7);
-  const dateStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit" });
+  const dateStr = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
   return `W+${offset} (${dateStr})`;
 }
 
@@ -121,12 +121,18 @@ export default function DashboardPage() {
     };
   }, [mc16, mrp, sc]);
 
-  const todayLabel = new Date().toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  // Manual formatting (not toLocaleDateString) so server and client render
+  // byte-identical output regardless of available ICU data — avoids a
+  // hydration mismatch some Node builds produce for "long" date styles.
+  const todayLabel = useMemo(() => {
+    const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const MONTHS = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December",
+    ];
+    const d = new Date();
+    return `${WEEKDAYS[d.getDay()]}, ${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  }, []);
 
   const kpiCards = [
     {
